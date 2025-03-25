@@ -1,0 +1,46 @@
+services:
+  database:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: inventory-db
+    restart: always
+    ports:
+     - 3307:3306
+    volumes:
+      - ./db/volumes:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: Oncenacio16
+      MARIADB_DATABASE: inventoryms
+      MARIADB_USER: blandoncj
+      MARIADB_PASSWORD: Oncenacio16
+    hostname: inventory-db
+    networks:
+      - inventory_network
+    healthcheck:
+      test: ["CMD", "mariadb", "-u", "root", "-pOncenacio16"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  
+  inventoryms:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: inventory-api  
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://inventory-db:3306/inventoryms
+      SPRING_DATASOURCE_USERNAME: blandoncj
+      SPRING_DATASOURCE_PASSWORD: Oncenacio16
+    networks:
+      - inventory_network
+
+networks:
+  inventory_network:
+    driver: bridge
