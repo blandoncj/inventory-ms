@@ -1,0 +1,2086 @@
+{
+  "info": {
+    "_postman_id": "82b8a6a3-2bc3-4ada-bcaf-d1ea86bb507d",
+    "name": "Inventory Microservice",
+    "description": "API for managing products and categories in an inventory system. It provides endpoints for creating, retrieving, updating, and managing the status of both categories and products, including stock adjustments.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38980089"
+  },
+  "item": [
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/categories",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "categories"
+              ]
+            },
+            "description": "**Method:** `GET`\n\n**Endpoint:** `/api/v1/categories`\n\n**Description:** Retrieves a list of all product categories.\n\n**Responses:**\n\n- `200 OK`: Returns a list of categories."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/categories",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "categories"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 06:14:29 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Electronics\",\n        \"isActive\": false\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Sports\",\n        \"isActive\": true\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get Category by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/categories/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "categories",
+                "1"
+              ]
+            },
+            "description": "**Method:** `GET`\n\n**Endpoint:** `/api/v1/categories/{id}`\n\n**Description:** Retrieves details of a specific category by its ID.\n\n**Path parameter:**\n\n- `id` (Long) - Category ID\n    \n\n**Responses:**\n\n- `200 OK`: Returns the category details.\n    \n- `404 Not Found`: If the category does not exist."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/categories/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 06:17:26 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"name\": \"Electronics\",\n    \"isActive\": false\n}"
+            },
+            {
+              "name": "404 - Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/categories/4",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "categories",
+                    "4"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "29"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:01:55 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Category not found with ID: 4"
+            }
+          ]
+        },
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Beauty\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/categories",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "categories"
+              ]
+            },
+            "description": "**Method:** `POST`\n\n**Endpoint:** `/api/v1/categories`\n\n**Description:** Creates a new product category.\n\n**Responses:**\n\n- `201 Created`: Returns the created category.\n    \n- `409 Conflict`: If the category name already exists."
+          },
+          "response": [
+            {
+              "name": "201 - Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Beauty\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/categories",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "categories"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 06:18:00 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 3,\n    \"name\": \"Beauty\",\n    \"isActive\": true\n}"
+            },
+            {
+              "name": "409 - Duplicate Name",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Beauty\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/categories",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "categories"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "43"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:04:41 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Category with name: 'Beauty' already exists"
+            }
+          ]
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Electronics\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/categories/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "categories",
+                "4"
+              ]
+            },
+            "description": "**Method:** `PUT`\n\n**Endpoint:** `/api/v1/categories`\n\n**Description:** Creates a new product category.\n\n**Path parameter:**\n\n- `id` (Long) - Category ID\n    \n\n**Responses:**\n\n- `200 OK`: Returns the updated category.\n    \n- `404 Not Found`: If the category does not exist.\n    \n- `409 Conflict`: If the category name already exists."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Electronics\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/categories/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 06:22:20 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"name\": \"Electronics\",\n    \"isActive\": false\n}"
+            },
+            {
+              "name": "404 - Not Found",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Electronics\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/categories/3",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "categories",
+                    "3"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "29"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:12:55 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Category not found with ID: 4"
+            },
+            {
+              "name": "409 - Duplicate Name",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Electronics\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/categories/3",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "categories",
+                    "3"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "48"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:14:20 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Category with name: 'Electronics' already exists"
+            }
+          ]
+        },
+        {
+          "name": "Toggle Category Status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/categories/1/toggle-status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "categories",
+                "1",
+                "toggle-status"
+              ]
+            },
+            "description": "**Method:** `PATCH`\n\n**Endpoint:** `/api/v1/categories/{id}/toggle-status`\n\n**Description:** Activates or deactivates a category.\n\n**Path parameter:**\n\n- `id` (Long) - Category ID\n    \n\n**Responses:**\n\n- `200 OK`: If the category status is successfully toggled.\n    \n- `404 Not Found`: If the category does not exist."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/categories/1/toggle-status",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "categories",
+                    "1",
+                    "toggle-status"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "36"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 06:22:36 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Category status updated successfully"
+            },
+            {
+              "name": "404 - Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/categories/4/toggle-status",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "categories",
+                    "4",
+                    "toggle-status"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "29"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:15:54 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Category not found with ID: 4"
+            }
+          ]
+        }
+      ],
+      "description": "The folder contains endpoints for managing product categories in the inventory system.\n\n### Features:\n\n- Create new categories.\n    \n- Retrieve category details by ID.\n    \n- List all categories.\n    \n- Update category information.\n    \n- Toggle category status (activate/deactivate).\n    \n\nUse these enpoints to organize products efficiently within different categories."
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/products",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "products"
+              ]
+            },
+            "description": "**Method:** `GET`\n\n**Endpoint:** `/api/v1/products`\n\n**Description:** Retrieves a list of all products.\n\n**Responses:**\n\n- `200 OK`: Returns a list of products."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 15:28:43 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"sku\": \"LOG-MSE-001\",\n        \"name\": \"Logitech M170 Mouse Inalámbrico\",\n        \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 mts y batería de hasta 12 meses.\",\n        \"stock\": 50,\n        \"price\": 18.99,\n        \"isActive\": true,\n        \"categoryId\": 1\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get Products by Category ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/products/category/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "category",
+                "1"
+              ]
+            },
+            "description": "**Method:** `GET`\n\n**Endpoint:** `/api/v1/products/category/{id}`\n\n**Description:** Retrieves a list of products that belong to a specific category.\n\n**Path parameter:**\n\n- `id` (Long) - Category ID\n    \n\n**Responses:**\n\n- `200 OK`: Returns a list of products.\n    \n- `404 Not Found`: If the category does not exist."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/category/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "category",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 15:31:16 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"sku\": \"LOG-MSE-001\",\n        \"name\": \"Logitech M170 Mouse Inalámbrico\",\n        \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 mts y batería de hasta 12 meses.\",\n        \"stock\": 50,\n        \"price\": 18.99,\n        \"isActive\": true,\n        \"categoryId\": 1\n    }\n]"
+            },
+            {
+              "name": "404 - Category Not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/category/4",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "category",
+                    "4"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "29"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:19:53 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Category not found with ID: 4"
+            }
+          ]
+        },
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/products/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**Method:** `GET`\n\n**Endpoint:** `/api/v1/products/{id}`\n\n**Description:** Retrieves details of a specific product by its ID.\n\n**Path parameter:**\n\n- `id` (Long) - Product ID\n    \n\n**Responses:**\n\n- `200 OK`: Returns the product details.\n    \n- `404 Not Found`: If the product does not exist."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 15:29:06 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"sku\": \"LOG-MSE-001\",\n    \"name\": \"Logitech M170 Mouse Inalámbrico\",\n    \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 mts y batería de hasta 12 meses.\",\n    \"stock\": 50,\n    \"price\": 18.99,\n    \"isActive\": true,\n    \"categoryId\": 1\n}"
+            },
+            {
+              "name": "404 - Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/4",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "4"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "28"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:21:03 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Product not found with ID: 4"
+            }
+          ]
+        },
+        {
+          "name": "Get Product by SKU",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/products/sku/LOG-MSE-001",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "sku",
+                "LOG-MSE-001"
+              ]
+            },
+            "description": "**Method:** `GET`\n\n**Endpoint:** `/api/v1/products/sku/{sku}`\n\n**Description:** Retrieves details of a specific product by its SKU.\n\n**Path parameter:**\n\n- `sku` (String) - Product SKU\n    \n\n**Responses:**\n\n- `200 OK`: Returns the product details.\n    \n- `404 Not Found`: If the product does not exist."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/sku/LOG-MSE-001",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "sku",
+                    "LOG-MSE-001"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 15:29:43 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"sku\": \"LOG-MSE-001\",\n    \"name\": \"Logitech M170 Mouse Inalámbrico\",\n    \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 mts y batería de hasta 12 meses.\",\n    \"stock\": 50,\n    \"price\": 18.99,\n    \"isActive\": true,\n    \"categoryId\": 1\n}"
+            },
+            {
+              "name": "404 - Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/sku/LOG-MSE-002",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "sku",
+                    "LOG-MSE-002"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "39"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:22:00 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Product not found with SKU: LOG-MSE-002"
+            }
+          ]
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"sku\": \"LOG-MSE-001\",\n    \"name\": \"Logitech M170 Mouse Inalámbrico\",\n    \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 mts y batería de hasta 12 meses.\",\n    \"stock\": 50,\n    \"price\": 18.99,\n    \"categoryId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/products",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "products"
+              ]
+            },
+            "description": "**Method:** `POST`\n\n**Endpoint:** `/api/v1/products`\n\n**Description:** Creates a new product.\n\n**Responses:**\n\n- `201 Created`: Returns the created product.\n    \n- `404 Not Found`: If the product category does not exist.\n    \n- `409 Conflict`: If the product sku already exists."
+          },
+          "response": [
+            {
+              "name": "201 - Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"sku\": \"LOG-MSE-001\",\n    \"name\": \"Logitech M170 Mouse Inalámbrico\",\n    \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 mts y batería de hasta 12 meses.\",\n    \"stock\": 50,\n    \"price\": 18.99,\n    \"categoryId\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 15:27:42 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"sku\": \"LOG-MSE-001\",\n    \"name\": \"Logitech M170 Mouse Inalámbrico\",\n    \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 mts y batería de hasta 12 meses.\",\n    \"stock\": 50,\n    \"price\": 18.99,\n    \"isActive\": true,\n    \"CategoryId\": 1\n}"
+            },
+            {
+              "name": "404 - Category Not Found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"sku\": \"LOG-MSE-003\",\n    \"name\": \"Logitech M170 Mouse Inalámbrico\",\n    \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 mts y batería de hasta 12 meses.\",\n    \"stock\": 50,\n    \"price\": 18.99,\n    \"categoryId\": 4\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "29"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:25:35 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Category not found with ID: 4"
+            },
+            {
+              "name": "409 - Duplicate SKU",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"sku\": \"LOG-MSE-001\",\n    \"name\": \"Logitech M170 Mouse Inalámbrico\",\n    \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 mts y batería de hasta 12 meses.\",\n    \"stock\": 50,\n    \"price\": 18.99,\n    \"categoryId\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "46"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:24:38 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Product with SKU: 'LOG-MSE-001' already exists"
+            }
+          ]
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Logitech M170 Mouse Inalámbrico\",\n  \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 metros y batería de hasta 12 meses.\",\n  \"price\": 19.99,\n  \"categoryId\": 1\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/products/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "1"
+              ]
+            },
+            "description": "**Method:** `PUT`\n\n**Endpoint:** `/api/v1/products`\n\n**Description:** Updates a product.\n\n**Path parameter:**\n\n- `id` (Long) - Product ID\n    \n\n**Responses:**\n\n- `200 OK`: Returns the updated product.\n    \n- `404 Not Found`: If the product does not exist.\n    \n- `404 Not Found`: If the product category does not exist."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Logitech M170 Mouse Inalámbrico\",\n  \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 metros y batería de hasta 12 meses.\",\n  \"price\": 19.99,\n  \"categoryId\": 1\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 15:35:20 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"sku\": \"LOG-MSE-001\",\n    \"name\": \"Logitech M170 Mouse Inalámbrico\",\n    \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 metros y batería de hasta 12 meses.\",\n    \"stock\": 50,\n    \"price\": 19.99,\n    \"isActive\": true,\n    \"categoryId\": 1\n}"
+            },
+            {
+              "name": "404 - Category Not Found",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Logitech M170 Mouse Inalámbrico\",\n  \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 metros y batería de hasta 12 meses.\",\n  \"price\": 19.99,\n  \"categoryId\": 4\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "29"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:29:08 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Category not found with ID: 4"
+            },
+            {
+              "name": "404 - Product Not Found",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Logitech M170 Mouse Inalámbrico\",\n  \"description\": \"Mouse inalámbrico de 2.4 GHz con receptor USB. Diseño compacto, alcance de 10 metros y batería de hasta 12 meses.\",\n  \"price\": 19.99,\n  \"categoryId\": 4\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/4",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "4"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "28"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:29:35 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Product not found with ID: 4"
+            }
+          ]
+        },
+        {
+          "name": "Toggle Product Status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/products/1/toggle-status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "1",
+                "toggle-status"
+              ]
+            },
+            "description": "**Method:** `PATCH`\n\n**Endpoint:** `/api/v1/products/{id}/toggle-status`\n\n**Description:** Activates or deactivates a product.\n\n**Path parameter:**\n\n- `id` (Long) - Product ID\n    \n\n**Responses:**\n\n- `200 OK`: If the product status is successfully toggled.\n    \n- `404 Not Found`: If the product does not exist."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/1/toggle-status",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "1",
+                    "toggle-status"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "35"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:55:35 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Product status updated successfully"
+            },
+            {
+              "name": "404 - Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/4/toggle-status",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "4",
+                    "toggle-status"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "28"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:56:26 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Product not found with ID: 4"
+            }
+          ]
+        },
+        {
+          "name": "Increase Product Stock",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/products/1/increase-stock?quantity=10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "1",
+                "increase-stock"
+              ],
+              "query": [
+                {
+                  "key": "quantity",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "**Method:** `PATCH`\n\n**Endpoint:** `/api/v1/products/{id}/increase-stock`\n\n**Description:** Increases the stock quantity of a specific product.\n\n**Path parameter:**\n\n- `id` (Long) - Product ID\n    \n\n**Query parameter:**\n\n- `quantity`: The amount to add to the product stock. Must be a positive number.\n    \n\n**Responses:**\n\n- `200 OK`: If the stock is successfully increased.\n    \n- `400 Bad Request`: If the provided quantity is negative.\n    \n- `404 Not Found`: If the product does not exist."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/1/increase-stock?quantity=10",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "1",
+                    "increase-stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "quantity",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "21"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 15:54:41 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Stock increased by 10"
+            },
+            {
+              "name": "404 - Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/5/increase-stock?quantity=10",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "5",
+                    "increase-stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "quantity",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "28"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:32:44 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Product not found with ID: 5"
+            },
+            {
+              "name": "400 - Negative Number",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/1/increase-stock?quantity=-10",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "1",
+                    "increase-stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "quantity",
+                      "value": "-10"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "34"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 17:03:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "Quantity must be a positive number"
+            }
+          ]
+        },
+        {
+          "name": "Decrease Product Stock",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/products/1/decrease-stock?quantity=10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "products",
+                "1",
+                "decrease-stock"
+              ],
+              "query": [
+                {
+                  "key": "quantity",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "**Method:** `PATCH`\n\n**Endpoint:** `/api/v1/products/{id}/decrease-stock`\n\n**Description:** Decreases the stock quantity of a specific product.\n\n**Path parameter:**\n\n- `id` (Long) - Product ID\n    \n\n**Query parameter:**\n\n- `quantity`: The amount to subtract from the product stock. Must be a positive number.\n    \n\n**Responses:**\n\n- `200 OK`: If the stock is successfully increased.\n    \n- `400 Bad Request`: If the provided quantity is negative.\n    \n- `404 Not Found`: If the product does not exist.\n    \n- `409 Conflct`: If there is not enough stock available to fulfill the request."
+          },
+          "response": [
+            {
+              "name": "200 - Success",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/1/decrease-stock?quantity=10",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "1",
+                    "decrease-stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "quantity",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "21"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 15:55:32 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Stock decreased by 10"
+            },
+            {
+              "name": "400 - Negative Number",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/1/decrease-stock?quantity=-1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "1",
+                    "decrease-stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "quantity",
+                      "value": "-1"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "34"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:41:26 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                }
+              ],
+              "cookie": [],
+              "body": "Quantity must be a positive number"
+            },
+            {
+              "name": "404 - Not Found",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/5/decrease-stock?quantity=10",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "5",
+                    "decrease-stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "quantity",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "28"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:36:48 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Product not found with ID: 5"
+            },
+            {
+              "name": "409 - Insufficient Stock",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8080/api/v1/products/1/decrease-stock?quantity=60",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "v1",
+                    "products",
+                    "1",
+                    "decrease-stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "quantity",
+                      "value": "60"
+                    }
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain;charset=UTF-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "41"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 24 Mar 2025 16:40:29 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "Insufficient stock for product with ID: 1"
+            }
+          ]
+        }
+      ],
+      "description": "The folder contains endpoints for managing products in the inventory system."
+    }
+  ]
+}
