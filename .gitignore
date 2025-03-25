@@ -56,4 +56,4 @@ gradlew.bat
 # Spring Boot devtools (if used)
 spring-boot-devtools.jar
 
-db/volumes/
+inventory-ms/db/volumes/
