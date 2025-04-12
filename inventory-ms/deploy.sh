@@ -1,27 +1,41 @@
 #!/bin/bash
 
-# exit on error
 set -e
 
-# image name in Docker Hub
-IMAGE_NAME="blandoncj/inventory-api:latest"
+BACKEND_DIR=${1:-"./backend"}
+DB_DIR=${2:-"./db"}
 
-echo "📦 Building the image for the API..."
-docker build -t $IMAGE_NAME ./backend/ || {
-  echo "❌ Build failed!"
+BACKEND_IMAGE="blandoncj/inventory-api:latest"
+DB_IMAGE="blandoncj/inventory-db:latest"
+
+echo "📦 Building backend image from: $BACKEND_DIR..."
+docker build -t $BACKEND_IMAGE $BACKEND_DIR/ || {
+  echo "❌ Backend build failed!"
   exit 1
 }
 
-echo "⬆️ Uploading the image to Docker Hub..."
-docker push $IMAGE_NAME || {
-  echo "❌ Push failed!"
+echo "⬆️ Pushing backend image to Docker Hub..."
+docker push $BACKEND_IMAGE || {
+  echo "❌ Backend push failed!"
   exit 1
 }
 
-echo "🚀 Starting the containers..."
+echo "📦 Building db image from: $DB_DIR..."
+docker build -t $DB_IMAGE $DB_DIR/ || {
+  echo "❌ db build failed!"
+  exit 1
+}
+
+echo "⬆️ Pushing db image to Docker Hub..."
+docker push $DB_IMAGE || {
+  echo "❌ db push failed!"
+  exit 1
+}
+
+echo "🚀 Starting containers..."
 docker compose up -d --build || {
   echo "❌ Failed to start containers!"
   exit 1
 }
 
-echo "✅ Everything is ready!"
+echo "✅ Deployment completed successfully!"
